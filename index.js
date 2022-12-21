@@ -19,7 +19,8 @@ const storage = multer.diskStorage({
     const randomString = Math.random().toString(36).substring(2, 15);
 
     // specify the file name with the random string appended to the end
-    cb(null, `${file.originalname}-${randomString}`);
+    cb(null, `${randomString}-${file.originalname}`);
+    global.FN = `${randomString}-${file.originalname}`;
   }
 });
 
@@ -34,7 +35,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
     const fileName = req.file.originalname;
 
     // construct the URL of the uploaded file
-    const fileUrl = `https://FileUploader.andromidamcab.repl.co/uploads/${fileName}\n`;
+    const fileUrl = `https://FileUploader.andromidamcab.repl.co/uploads/${FN}\n`;
 
     // send a response to the client with the URL of the uploaded file
     res.send(fileUrl);
